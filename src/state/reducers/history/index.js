@@ -6,7 +6,7 @@ import {HELLO_PANEL} from "../../../constants/PanelConstants";
 const initialState = {
   activeView: ROOT_VIEW,
   activePanel: HELLO_PANEL,
-  history: [HELLO_PANEL],
+  history: [{panelId: HELLO_PANEL, viewId: ROOT_VIEW}],
 };
 
 const historyReducer = (state = initialState, action) => {
@@ -14,7 +14,7 @@ const historyReducer = (state = initialState, action) => {
     case types.SET_ACTIVE_PANEL:
       return {
         ...state,
-        activePanel: action.payload,
+        activePanel: action.payload.panelId,
         history: [...state.history, action.payload],
       };
 
@@ -25,13 +25,15 @@ const historyReducer = (state = initialState, action) => {
         ...state,
         activeView: viewId,
         activePanel: panelId,
+        history: [...state.history, action.payload.history],
       };
     }
 
     case types.SET_PREVIOUS_PANEL:
       return {
         ...state,
-        activePanel: action.payload[action.payload.length - 1],
+        activeView: action.payload[action.payload.length - 1].viewId,
+        activePanel: action.payload[action.payload.length - 1].panelId,
         history: [...action.payload],
       };
     default:

@@ -12,8 +12,8 @@ module.exports = require('./webpack.config')({
     main: './src/index.js',
   },
   output: {
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].chunk.js'
+    filename: '[name].js',
+    chunkFilename: '[name].js'
   },
   optimization: {
     minimize: true,
@@ -32,7 +32,7 @@ module.exports = require('./webpack.config')({
     new HtmlWebpackPlugin({
       template: 'public/index.html',
       // favicon: 'public/favicon.ico',
-      hash: true,
+      hash: false,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -46,7 +46,6 @@ module.exports = require('./webpack.config')({
         minifyURLs: true
       },
       inject: true,
-      // chunks: ['main']
     }),
     new UnusedFilesWebpackPlugin(),
     new BundleAnalyzerPlugin({ analyzerMode: 'static' })
